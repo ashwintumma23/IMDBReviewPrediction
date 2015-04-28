@@ -1,4 +1,5 @@
 import sys
+import re 
 # Read the input review HTML file
 fp = open(sys.argv[1],'r')
 
@@ -7,7 +8,9 @@ fout = open(sys.argv[2],'a+')
 
 startFlag = 0
 for line in fp:
-	 
+	
+	# Remove the quotes and other non-ASCII characters from the line	
+	line = re.sub(r"\&....;","",line)
 	if '<h2>' in line:
 		
 		fout.write(line.split('<h2>')[1].strip().split('</h2>')[0].strip()+'\t')
