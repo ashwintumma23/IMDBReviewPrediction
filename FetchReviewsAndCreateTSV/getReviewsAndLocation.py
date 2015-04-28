@@ -1,5 +1,8 @@
 import sys
+# Read the input review HTML file
 fp = open(sys.argv[1],'r')
+
+# Open file in append mode so that other reviews can be written
 fout = open(sys.argv[2],'a+')
 
 startFlag = 0
