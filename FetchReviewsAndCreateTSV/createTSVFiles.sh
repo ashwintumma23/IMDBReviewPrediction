@@ -13,8 +13,9 @@ do
         echo review_$var\_Output_Location.tsv file written
 done
 perl -i'.bak' -p -e 's/<br>//g' *.tsv
-perl -i'.bak' -p -e 's/&quot;//g' review_5_Output_Location.tsv
-perl -i'.bak' -p -e 's/&#..;//g' review_5_Output_Location.tsv
-perl -i'.bak' -p -e 's/&#...;//g' review_5_Output_Location.tsv
-perl -i'.bak' -p -e 's/&amp;/&/g' review_5_Output_Location.tsv
+perl -i'.bak' -p -e 's/&quot;//g' *.tsv 
+perl -i'.bak' -p -e 's/&#..;//g' *.tsv
+perl -i'.bak' -p -e 's/&#...;//g' *.tsv
+perl -i'.bak' -p -e 's/&#....;//g' *.tsv
+perl -i'.bak' -p -e 's/&amp;/&/g' *.tsv
 rm -rf *.bak
