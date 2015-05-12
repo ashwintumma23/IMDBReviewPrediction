@@ -7,6 +7,7 @@ fp = open(sys.argv[1],'r')
 fout = open(sys.argv[2],'a+')
 
 startFlag = 0
+altFlag = 0 
 for line in fp:
 	
 	# Remove the quotes and other non-ASCII characters from the line	
@@ -15,7 +16,14 @@ for line in fp:
 		
 		fout.write(line.split('<h2>')[1].strip().split('</h2>')[0].strip()+'\t')
 		startFlag = 1
+		altFlag = 0 
 
+	elif 'alt=' in line and startFlag==1:
+		rating = line.split('alt=\"')[1].strip().split('/10')[0].strip()
+		fout.write(rating+'\t')
+		altFlag=1
+
+		
 	elif '<b>Author' in line:
 		authorLine =  next(fp)
 		if '<small>' in authorLine and 'from' in authorLine:
