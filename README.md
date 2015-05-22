@@ -1,5 +1,5 @@
 # IMDBReviewPrediction
-Repository for IMDB Review Prediction (Sentiment Analysis)  - Natural Language Processing Course Project
+Repository for IMDB Review Prediction (Sentiment Analysis)  - CSE 628 - Natural Language Processing Course Project
 
 ### Contributors
 Nikhil Ambekar

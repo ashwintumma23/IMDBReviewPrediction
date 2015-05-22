@@ -24,6 +24,10 @@ def parse_data(train_data, test_data):
             for line in f:
                 title, location, review, judgment = line.split("\t")
                 judgment = judgment.strip()
+		title = title.strip()
+		location = location.strip()
+		review = review.strip()
+		print fp, location, judgment
 
                 # Build up a list of unique tokens that occur in the intermediate text
                 # This is needed to create BOW feature vectors
@@ -50,26 +54,23 @@ def create_feature_vectors(data, all_tokens):
     """
     feature_vectors = []
     for instance in data:
-        try:
-	        # BOW features
-	        # Gets the number of occurrences of each token
-	        # in the intermediate text
-	        feature_vector = [0 for t in all_tokens]
-	        intermediate_text = instance[0]
-	        tokens = intermediate_text.split()
-	        for token in tokens:
-	            index = all_tokens.index(token.lower())
-	            feature_vector[index] += 1
-	
-	        ### ADD ADDITIONAL FEATURES HERE ###
-	
-        	# Class label
-	        judgment = instance[1]
-	        feature_vector.append(judgment)
-	
-	        feature_vectors.append(feature_vector)
-	except:
-		continue	
+        # BOW features
+        # Gets the number of occurrences of each token
+        # in the intermediate text
+        feature_vector = [0 for t in all_tokens]
+        intermediate_text = instance[0]
+        tokens = intermediate_text.split()
+        for token in tokens:
+            index = all_tokens.index(token.lower())
+            feature_vector[index] += 1
+
+        ### ADD ADDITIONAL FEATURES HERE ###
+
+        # Class label
+        judgment = instance[1]
+        feature_vector.append(judgment)
+
+        feature_vectors.append(feature_vector)
     return feature_vectors
 
 
@@ -92,7 +93,7 @@ def generate_arff_file(feature_vectors, all_tokens, out_path):
         # For example: f.write("@ATTRIBUTE custom_1 REAL\n")
 
         # Classes
-        f.write("@ATTRIBUTE class {1,2,3,4,5,6,7,8,9,10}\n")
+        f.write("@ATTRIBUTE class {yes,no}\n")
 
         # Data instances
         f.write("\n@DATA\n")
@@ -108,5 +109,5 @@ def generate_arff_file(feature_vectors, all_tokens, out_path):
 if __name__ == "__main__":
     data, all_tokens = parse_data(TRAIN_DATA_PATH, TEST_DATA_PATH)
     feature_vectors = create_feature_vectors(data, all_tokens)
-    generate_arff_file(feature_vectors[:150], all_tokens, "train.arff")
-    generate_arff_file(feature_vectors[150:], all_tokens, "test.arff")
+    generate_arff_file(feature_vectors[:727], all_tokens, "train.arff")
+    generate_arff_file(feature_vectors[727:], all_tokens, "test.arff")
